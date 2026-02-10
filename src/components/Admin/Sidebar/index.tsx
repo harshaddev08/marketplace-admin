@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { AuthService } from "@/services/auth.service";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/" },
@@ -93,7 +94,10 @@ export const AdminSidebar = () => {
           />
           {!collapsed && <span>Collapse</span>}
         </button>
-        <button className="sidebar-link w-full text-destructive hover:bg-destructive/10">
+        <button
+          onClick={() => AuthService.logout()}
+          className="sidebar-link w-full text-destructive hover:bg-destructive/10"
+        >
           <LogOut className="w-5 h-5" />
           {!collapsed && <span>Logout</span>}
         </button>

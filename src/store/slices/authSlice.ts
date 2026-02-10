@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
 interface User {
   id: string;
@@ -49,7 +50,8 @@ const authSlice = createSlice({
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isAuthenticated = true;
-      localStorage.setItem("user", JSON.stringify(action.payload.user)); // Keep localstorage for redundancy if needed, or remove
+      localStorage.setItem("user", JSON.stringify(action.payload.user));
+      localStorage.setItem("token", action.payload.token);
     },
     logout: (state) => {
       state.user = null;
@@ -57,12 +59,7 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      // Note: We can't use js-cookie in Redux logic if it runs server-side (Next.js),
-      // but Redux Toolkit is usually client-side.
-      // Ideally, logout should happen in a component or thunk.
-      // For now, we rely on the component dispatching this to also clear cookies if possible,
-      // or we accept that reducers are pure.
-      // Better: Create a logout function in AuthService or component that clears cookie THEN dispatches.
+      Cookies.remove("token");
     },
   },
 });

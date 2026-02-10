@@ -57,9 +57,9 @@ export const AdminHeader = () => {
           <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full" />
         </Button>
 
-        {/* Profile */}
+        {/* Profile & Logout */}
         <div className="flex items-center gap-3 pl-4 border-l border-border/50">
-          <div className="text-right">
+          <div className="text-right hidden md:block">
             <p className="text-sm font-medium">Admin User</p>
             <p className="text-xs text-muted-foreground">admin@market.com</p>
           </div>
