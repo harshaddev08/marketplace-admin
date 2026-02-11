@@ -1,10 +1,12 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
 import { cn } from "@/lib/utils";
+import { ReactNode } from "react";
 
 interface UserInfoProps {
   name: string;
-  email: string;
-  avatarUrl?: string;
+  email?: string;
+  avatarUrl?: string | null;
+  subtext?: ReactNode;
   showEmail?: boolean;
   className?: string;
 }
@@ -13,6 +15,7 @@ export const UserInfo = ({
   name,
   email,
   avatarUrl,
+  subtext,
   showEmail = true,
   className,
 }: UserInfoProps) => {
@@ -35,7 +38,12 @@ export const UserInfo = ({
       </Avatar>
       <div>
         <p className="font-medium text-foreground">{name}</p>
-        {showEmail && <p className="text-sm text-muted-foreground">{email}</p>}
+        {showEmail && email && (
+          <p className="text-sm text-muted-foreground">{email}</p>
+        )}
+        {subtext && (
+          <div className="text-xs text-muted-foreground">{subtext}</div>
+        )}
       </div>
     </div>
   );
